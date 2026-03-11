@@ -11,45 +11,36 @@ public static class Arrays
     public static double[] MultiplesOf(double number, int length)
     {
         double[] result = new double[length];
+
         for (int i = 0; i < length; i++)
         {
             result[i] = number * (i + 1);
         }
+
         return result;
     }
 
-    // Function: RotateListRight
+    /// <summary>
+    /// Rotates the elements in the list to the right by the specified number of positions.
+    /// </summary>
     public static void RotateListRight<T>(List<T> list, int positions)
     {
         if (list == null || list.Count == 0 || positions == 0)
             return;
 
         int count = list.Count;
+
+        // Prevent rotating more than the list size
         positions = positions % count;
-        if (positions == 0) return;
+
+        if (positions == 0)
+            return;
 
         List<T> temp = new List<T>(list);
+
         for (int i = 0; i < count; i++)
         {
             list[(i + positions) % count] = temp[i];
-        }
-    }
-}
-
-// ==========================
-// Program class with Main
-// ==========================
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Call the MultiplesOf function
-        double[] result = Arrays.MultiplesOf(7, 5);
-
-        // Print the output to the terminal
-        foreach (double num in result)
-        {
-            Console.WriteLine(num);
         }
     }
 }

@@ -4,43 +4,42 @@ using System.Collections.Generic;
 public static class Arrays
 {
     /// <summary>
-    /// This function will produce an array of size 'length' starting with 'number'
-    /// followed by multiples of 'number'.
-    /// Example: MultiplesOf(7,5) -> {7,14,21,28,35}
+    /// Returns an array containing the first 'length' multiples of 'number'.
+    /// Handles zero, negative numbers, and non-positive length.
     /// </summary>
     public static double[] MultiplesOf(double number, int length)
     {
-        double[] result = new double[length];
+        if (length <= 0)
+            return new double[0];  // return empty array for non-positive length
 
+        double[] result = new double[length];
         for (int i = 0; i < length; i++)
         {
             result[i] = number * (i + 1);
         }
-
         return result;
     }
 
     /// <summary>
-    /// Rotates the elements in the list to the right by the specified number of positions.
+    /// Rotates a list to the right by 'positions'.
+    /// Handles negative positions and rotations greater than list length.
+    /// Works in-place using the 3-reverse algorithm.
     /// </summary>
     public static void RotateListRight<T>(List<T> list, int positions)
     {
-        if (list == null || list.Count == 0 || positions == 0)
+        if (list == null || list.Count <= 1 || positions == 0)
             return;
 
         int count = list.Count;
+        positions = ((positions % count) + count) % count; // normalize rotations
 
-        // Prevent rotating more than the list size
-        positions = positions % count;
+        // Reverse the entire list
+        list.Reverse(0, count);
 
-        if (positions == 0)
-            return;
+        // Reverse the first 'positions' elements
+        list.Reverse(0, positions);
 
-        List<T> temp = new List<T>(list);
-
-        for (int i = 0; i < count; i++)
-        {
-            list[(i + positions) % count] = temp[i];
-        }
+        // Reverse the remaining elements
+        list.Reverse(positions, count - positions);
     }
 }

@@ -59,3 +59,4 @@ public class TakingTurnsQueue
 
         return person;
     }
+}

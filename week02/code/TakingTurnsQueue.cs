@@ -37,21 +37,25 @@ public class TakingTurnsQueue
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
+
+        // 1. Get the person from the front
+        Person person = _people.Dequeue();
+
+        // 2. Handle the Turn Logic
+        // If turns is 0 or less, they are "Forever" players.
+        // We put them back in the queue WITHOUT decreasing their turns.
+        if (person.Turns <= 0)
         {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
-            {
-                person.Turns -= 1;
-                _people.Enqueue(person);
-            }
-
-            return person;
+            _people.Enqueue(person);
         }
-    }
+        // If turns is positive (1, 2, 3...), they use a turn.
+        else if (person.Turns > 1)
+        {
+            person.Turns -= 1;
+            _people.Enqueue(person);
+        }
+        // Note: If person.Turns is exactly 1, we don't Enqueue them again.
+        // They just finished their last turn and leave the queue.
 
-    public override string ToString()
-    {
-        return _people.ToString();
+        return person;
     }
-}

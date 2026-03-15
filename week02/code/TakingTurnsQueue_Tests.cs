@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 // DO NOT MODIFY THE CODE IN THE TESTS in this file, just the comments above the tests. 
 // Fix the code being tested to match requirements and make all tests pass. 
 
+// DEFECT: The method returns Total Tests: 5 Passed: 1Failed: 4 Skipped: 0 Result: ❌ FAILED
+
 [TestClass]
 public class TakingTurnsQueueTests
 {
@@ -86,6 +88,10 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    // TODO Problem 1
+    // DEFECT: The test fails because the method returns "Sue" 
+    // instead of the expected value "Tim".
+    // [Record any other details found during debugging here]
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
